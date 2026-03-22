@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>QQ Barbershop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #eaeaea;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 120px 20px;
+      background:
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+        url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70');
+      background-size: cover;
+      background-position: center;
+    }
+
+    h1 {
+      font-size: 56px;
+      color: #d4af37;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      background: #d4af37;
+      color: #000;
+      transition: 0.3s;
+      border: none;
+    }
+
+    .btn:hover {
+      background: #b8962e;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #d4af37;
+      font-size: 32px;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 650px;
+      margin: auto;
+      color: #bbb;
+      line-height: 1.7;
+    }
+
+    .barber-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 280px));
+      justify-content: center;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .barber-card {
+      background: rgba(17, 17, 17, 0.92);
+      padding: 22px 18px;
+      border-radius: 12px;
+      border: 1px solid #1f1f1f;
+      transition: 0.3s;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .barber-card:hover {
+      border-color: #d4af37;
+      transform: translateY(-4px);
+    }
+
+    .barber-avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 14px;
+      border: 1px solid #2a2a2a;
+    }
+
+    .barber-name {
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 8px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .barber-role {
+      color: #9d9d9d;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .barber-card .btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px 18px;
+      font-size: 14px;
+    }
+
+    .price-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .price-card {
+      background: #111;
+      padding: 18px 16px;
+      border-radius: 10px;
+      border: 1px solid #1f1f1f;
+      transition: 0.3s;
+      overflow: hidden;
+    }
+
+    .price-card:hover {
+      border-color: #d4af37;
+      transform: translateY(-4px);
+    }
+
+    .price-card h3 {
+      margin-bottom: 14px;
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .price-table {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .price-head,
+    .price-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 1.7fr) minmax(52px, 0.7fr) minmax(52px, 0.7fr) minmax(52px, 0.7fr);
+      column-gap: 8px;
+      align-items: center;
+    }
+
+    .price-head {
+      padding: 0 0 10px 0;
+      margin-bottom: 2px;
+      border-bottom: 1px solid #232323;
+    }
+
+    .price-head div {
+      font-size: 11px;
+      line-height: 1;
+      color: #8a8a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .price-head .service-col {
+      text-align: left;
+    }
+
+    .price-row {
+      padding: 12px 0;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .price-row:last-child {
+      border-bottom: none;
+    }
+
+    .service-col {
+      color: #f0f0f0;
+      font-size: 14px;
+      line-height: 1.35;
+      padding-right: 4px;
+      word-break: break-word;
+    }
+
+    .price-row div:not(.service-col) {
+      text-align: center;
+      color: #bcbcbc;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .single-price .one-col {
+      grid-template-columns: 1fr auto;
+    }
+
+    .single-price .one-col div:last-child {
+      text-align: right;
+    }
+
+    .location-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .location-card {
+      background: #111;
+      border: 1px solid #1f1f1f;
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .location-card:hover {
+      border-color: #d4af37;
+      transform: translateY(-4px);
+    }
+
+    .location-title {
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 8px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .location-text {
+      color: #9d9d9d;
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .location-card .btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px 18px;
+      font-size: 14px;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      border: 1px solid #333;
+      color: #ddd;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      border-color: #d4af37;
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .float-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: #d4af37;
+      color: #000;
+      padding: 12px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    @media (min-width: 768px) {
+      .price-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+      }
+
+      .price-card {
+        padding: 22px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .barber-cards,
+      .location-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 96px 16px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 64px 14px;
+      }
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 28px;
+      }
+
+      .barber-card,
+      .location-card,
+      .price-card {
+        padding: 16px 14px;
+        border-radius: 12px;
+      }
+
+      .price-card h3 {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+
+      .price-head,
+      .price-row {
+        grid-template-columns: minmax(104px, 1.6fr) minmax(50px, 0.68fr) minmax(50px, 0.68fr) minmax(50px, 0.68fr);
+        column-gap: 6px;
+      }
+
+      .price-head {
+        padding-bottom: 8px;
+      }
+
+      .price-head div {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+      }
+
+      .service-col {
+        font-size: 13px;
+        line-height: 1.3;
+      }
+
+      .price-row div:not(.service-col) {
+        font-size: 12px;
+      }
+
+      .price-row {
+        padding: 10px 0;
+      }
+
+      .socials a {
+        width: 100%;
+        text-align: center;
+      }
+
+      .float-btn {
+        right: 14px;
+        bottom: 14px;
+        padding: 11px 16px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>QQ Barbershop</h1>
+    <div class="subtitle">Два мастера. Один стандарт.</div>
+
+   
+  </header>
+
+  <section>
+    <h2>О нас</h2>
+    <div class="about">
+      Барбершоп QQ создан братьями Qambar и Qainar.
+      Два филиала, единый уровень качества и внимания к деталям.
+      Мы формируем стиль, который остаётся с вами.
+    </div>
+  </section>
+  <div class="barber-card">
+        <img
+          class="barber-avatar"
+          src="qainar.jpg"
+          alt="Qainar"
+        />
+        <div class="barber-name">№2 Филиал</div>
+        <div class="barber-role">Барбер</div>
+        <a href="https://wa.me/77074464698?text=Здравствуйте, хочу записаться на стрижку в QQ Barbershop" class="btn">
+          Записаться
+        </a>
+      </div>
+    </div>
+   <div class="barber-cards">
+      <div class="barber-card">
+        <img
+          class="barber-avatar"
+          src="qambar.jpg"
+          alt="Qambar"
+        />
+        <div class="barber-name">№1 Филиал</div>
+        <div class="barber-role">Барбер</div>
+        <a href="https://wa.me/77071076799?text=Здравствуйте, хочу записаться на стрижку в QQ Barbershop" class="btn">
+          Записаться
+        </a>
+      </div>
+
+  <section>
+    <h2>Услуги и цены</h2>
+
+    <div class="price-cards">
+      <div class="price-card">
+        <h3>Стрижки</h3>
+        <div class="price-table">
+          <div class="price-head">
+            <div class="service-col">Услуга</div>
+            <div>Барбер</div>
+            <div>Топ</div>
+            <div>VIP</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Стрижка</div>
+            <div>2500 ₸</div>
+            <div>3500 ₸</div>
+            <div>4500 ₸</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Детская</div>
+            <div>1200 ₸</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Мытьё и укладка</div>
+            <div>1000 ₸</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <h3>Борода</h3>
+        <div class="price-table">
+          <div class="price-head">
+            <div class="service-col">Услуга</div>
+            <div>Барбер</div>
+            <div>Топ</div>
+            <div>VIP</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Бритьё</div>
+            <div>1000 ₸</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Королевское</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+            <div>2500 ₸</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Окантовка</div>
+            <div>1000 ₸</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <h3>Тонировка</h3>
+        <div class="price-table">
+          <div class="price-head">
+            <div class="service-col">Услуга</div>
+            <div>Барбер</div>
+            <div>Топ</div>
+            <div>VIP</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Голова</div>
+            <div>2000 ₸</div>
+            <div>2000 ₸</div>
+            <div>3000 ₸</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Со своей краской</div>
+            <div>1000 ₸</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+          </div>
+
+          <div class="price-row">
+            <div class="service-col">Борода</div>
+            <div>1000 ₸</div>
+            <div>1500 ₸</div>
+            <div>2000 ₸</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <h3>Уход</h3>
+        <div class="price-table single-price">
+          <div class="price-row one-col">
+            <div class="service-col">Все процедуры</div>
+            <div>1000 ₸</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+     
+  <section>
+    <h2>Филиалы</h2>
+<div class="location-cards">
+      <div class="location-card">
+          <div class="location-title">QQ — №2</div>
+        <div class="location-text">
+          Первая точка барбершопа QQ в Таразе
+          </div>
+        <a href="https://2gis.kz/taraz/geo/70000001109513571" target="_blank" class="btn">
+          Открыть в 2GIS
+        </a>
+      </div>
+
+      <div class="location-card">
+          <div class="location-title">QQ — №1</div>
+        <div class="location-text">
+          Вторая точка барбершопа QQ в Таразе
+        </div>
+        <a href="https://2gis.kz/taraz/geo/70000001102778504" target="_blank" class="btn">
+          Открыть в 2GIS
+        </a>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Социальные Сети</h2>
+    <div class="socials">
+      <a href="https://www.instagram.com/qq_barbershop.tz?igsh=MW5pam9jN200cnlpZA==">Instagram</a>
+      <a href="https://www.tiktok.com/@qq_barbershop?_r=1&_t=ZS-94sxEGhA9hd" target="_blank">TikTok</a>
+    </div>
+  </section>
+
+  <footer>
+    © QQ Barbershop
+  </footer>
+
+</body>
+</html>
